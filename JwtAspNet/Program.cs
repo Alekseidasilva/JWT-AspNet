@@ -1,3 +1,4 @@
+using System.Security.Claims;
 using System.Text;
 using JwtAspNet;
 using JwtAspNet.Models;
@@ -43,7 +44,14 @@ app.MapGet("/login", (TokenService service) =>
      );
     return service.Create(user);
 });
-app.MapGet("/restrito", () => "Você tem Acesso!")
+app.MapGet("/restrito", (ClaimsPrincipal user) =>new
+    {
+       id=user.Claims.FirstOrDefault(x=>x.Type=="id").Value,
+       name=user.Claims.FirstOrDefault(x=>x.Type==ClaimTypes.Name).Value,
+       email=user.Claims.FirstOrDefault(x=>x.Type==ClaimTypes.Email).Value,
+       Givenname=user.Claims.FirstOrDefault(x=>x.Type==ClaimTypes.GivenName).Value,
+       image=user.Claims.FirstOrDefault(x=>x.Type=="image").Value,
+    })
     .RequireAuthorization();
 app.MapGet("/admin", () => "Você tem Acesso!")
     .RequireAuthorization("admin");
