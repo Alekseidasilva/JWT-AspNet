@@ -29,7 +29,7 @@ var app = builder.Build();
 app.UseAuthentication();
 app.UseAuthorization();
 
-app.MapGet("/", (TokenService service) =>
+app.MapGet("/login", (TokenService service) =>
 {
      var user=new Users.User(
           1,
@@ -40,5 +40,5 @@ app.MapGet("/", (TokenService service) =>
      );
     return service.Create(user);
 });
-
+app.MapGet("/restrito", () => "Você tem Acesso!").RequireAuthorization();
 app.Run();
