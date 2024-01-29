@@ -23,7 +23,10 @@ builder.Services.AddAuthentication(x =>
     };
 });
 
-builder.Services.AddAuthorization();
+builder.Services.AddAuthorization(x =>
+{
+    x.AddPolicy("admin",p=>p.RequireRole("admin"));
+});
 
 var app = builder.Build();
 app.UseAuthentication();
@@ -40,5 +43,8 @@ app.MapGet("/login", (TokenService service) =>
      );
     return service.Create(user);
 });
-app.MapGet("/restrito", () => "Você tem Acesso!").RequireAuthorization();
+app.MapGet("/restrito", () => "Você tem Acesso!")
+    .RequireAuthorization();
+app.MapGet("/admin", () => "Você tem Acesso!")
+    .RequireAuthorization("admin");
 app.Run();
