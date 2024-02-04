@@ -1,3 +1,5 @@
+using System.Security.Cryptography;
+
 namespace JwtStore.Core.SharedContext.ValueObjects;
 
 public abstract class ValueObject
@@ -20,8 +22,23 @@ public abstract class ValueObject
 
         while (index < length)
             res[index++] = chars[rnd.Next(startRandom, chars.Length)];
-
         return new string(res);
     }
 
+    private static string Hashing(string password,
+        short saltSize = 16,
+        short KeySize= 32,
+        int iterations = 1000,
+        char splitChar = '.')
+    {
+        if (string.IsNullOrEmpty(password))
+            throw new Exception("Password should not be bull or empty");
+        password += Configuration.screts.PasswordSaltKey;
+
+        using var algoritm = new Rfc2898DeriveBytes(password, saltSize, iterations, HashAlgorithmName.SHA256);
+        var key = Convert.ToBase64String(algoritm.GetBytes(KeySize));
+        var salt = Convert.ToBase64String(algoritm.Salt);
+
+        return $"{iterations}{splitChar}{salt}{splitChar}{key}";
+    }
 }
