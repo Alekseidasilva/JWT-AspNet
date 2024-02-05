@@ -2,7 +2,7 @@ using Flunt.Notifications;
 
 namespace JwtStore.Core.Contexts.SharedContext.UseCases;
 
-public abstract class Response
+public abstract class ResponseBase
 {
     public string Message { get; set; }=String.Empty;
     public int Status { get; set; } = 400;
