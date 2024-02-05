@@ -44,7 +44,7 @@ public class Password:ValueObject
     {
         if (string.IsNullOrEmpty(password))
             throw new Exception("Password should not be bull or empty");
-        password += Configuration.screts.PasswordSaltKey;
+        password += Configuration.Secrets.PasswordSaltKey;
 
         using var algoritm = new Rfc2898DeriveBytes(password, saltSize, iterations, HashAlgorithmName.SHA256);
         var key = Convert.ToBase64String(algoritm.GetBytes(KeySize));
@@ -60,7 +60,7 @@ public class Password:ValueObject
         int iterations = 1000,
         char splitChar = '.')
     {
-        password += Configuration.screts.PasswordSaltKey;
+        password += Configuration.Secrets.PasswordSaltKey;
         var parts = hash.Split(splitChar, 3);
         if (parts.Length != 3)
             return false;
