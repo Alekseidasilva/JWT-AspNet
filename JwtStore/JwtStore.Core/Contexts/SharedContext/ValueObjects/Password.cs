@@ -1,5 +1,6 @@
 using System.Security.Cryptography;
-namespace JwtStore.Core.SharedContext.ValueObjects;
+
+namespace JwtStore.Core.Contexts.SharedContext.ValueObjects;
 
 
 public class Password:ValueObject

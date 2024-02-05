@@ -14,4 +14,8 @@
     <ProjectReference Include="..\JwtStore.Core\JwtStore.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contexts\" />
+  </ItemGroup>
+
 </Project>
