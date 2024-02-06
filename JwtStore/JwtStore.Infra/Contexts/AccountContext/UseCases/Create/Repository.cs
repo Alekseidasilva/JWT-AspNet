@@ -9,7 +9,9 @@ public class Repository : IRepository
 {
     private readonly AppDbContext _context;
 
-    public Service(AppDbContext context) => _context = context;
+    public Repository(AppDbContext context)
+    => _context = context;
+
 
 
 
