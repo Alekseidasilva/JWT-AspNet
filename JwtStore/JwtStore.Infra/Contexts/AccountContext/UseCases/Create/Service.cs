@@ -1,27 +1,23 @@
-﻿using JwtStore.Core.Contexts.AccountContext.Entities;
+﻿using JwtStore.Core;
+using JwtStore.Core.Contexts.AccountContext.Entities;
 using JwtStore.Core.Contexts.AccountContext.UseCases.Create.Contracts;
 using JwtStore.Infra.Data;
 using Microsoft.EntityFrameworkCore;
+using SendGrid;
+using SendGrid.Helpers.Mail;
 
 namespace JwtStore.Infra.Contexts.AccountContext.UseCases.Create;
 
-public class Service : IRepository
+public class Service : IService
 {
-    private readonly AppDbContext _context;
-
-    public Service(AppDbContext context) => _context = context;
-
-
-
-    public async Task<bool> AnyAsync(string email, CancellationToken cancellationToken)
-        => await _context
-            .Users
-            .AsNoTracking()
-            .AnyAsync(x => x.Email == email, cancellationToken);
-
-    public async Task SaveAsync(User user, CancellationToken cancellationToken)
+    public async Task SendVerificationEmailAsync(User user, CancellationToken cancellationToken)
     {
-        await _context.Users.AddAsync(user, cancellationToken);
-        await _context.SaveChangesAsync(cancellationToken);
+        var client = new SendGridClient(Configuration.SendGrid.ApiKey);
+        var from = new EmailAddress(Configuration.Email.DefaultFromEmail, Configuration.Email.DefaultFromEmail);
+        const string subject = "Verifique sua Conta";
+        var to = new EmailAddress(user.Email, user.Name);
+        var content = $"Código : {user.Email.Verification.Code}";
+        var msg = MailHelper.CreateSingleEmail(from, to, subject, content, content);
+        await client.SendEmailAsync(msg, cancellationToken);
     }
 }
