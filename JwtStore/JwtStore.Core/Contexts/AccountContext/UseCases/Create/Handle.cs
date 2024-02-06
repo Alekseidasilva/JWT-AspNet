@@ -16,7 +16,7 @@ public class Handle//Manipulador
         _service = service;
     }
 
-    public async Task<Response> Handle(Request request,CancellationToken cancellationToken)
+    public async Task<Response> Handle(Request request, CancellationToken cancellationToken)
     {
         #region 01. Validar requisição
 
@@ -26,7 +26,7 @@ public class Handle//Manipulador
             if (!res.IsValid)
                 return new Response("Requisição Inválida", 400, res.Notifications);
         }
-        catch 
+        catch
         {
             return new Response("Não foi possivel validar sua requisição", 500);
         }
@@ -56,11 +56,11 @@ public class Handle//Manipulador
                 return new Response("Este email já esta em uso", 400);
 
         }
-        catch 
+        catch
         {
             return new Response("Falha ao verificar o Email cadastrado", 500);
         }
-        
+
         #endregion
         #region 04. Persistir os dados
 
@@ -73,9 +73,18 @@ public class Handle//Manipulador
             return new Response("Façha ao persistir os dados", 500);
         }
         #endregion
-
         #region 05. Enviar Email de Activação
 
+        try
+        {
+            await _service.SendVerificationEmailAsync(user, cancellationToken);
+        }
+        catch
+        {
+            //Do Not Nothing
+        }
         #endregion
+
+        return new Response("Contra criada com Sucesso", new Response.ResponseData(user.Id, user.Name, user.Email));
     }
 }
