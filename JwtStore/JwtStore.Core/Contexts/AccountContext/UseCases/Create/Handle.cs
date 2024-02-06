@@ -16,7 +16,7 @@ public class Handle//Manipulador
         _service = service;
     }
 
-    public async Task<Response> Handle(Request request,CancellationToken token)
+    public async Task<Response> Handle(Request request,CancellationToken cancellationToken)
     {
         #region 01. Validar requisição
 
@@ -47,11 +47,28 @@ public class Handle//Manipulador
             return new Response(ex.Message, 400);
         }
         #endregion 
-        #region 03. Verificar se o usuario exisite
-        #endregion 
+        #region 03. Verificar se o usuario exisite no banco
+
+        try
+        {
+            var exists = await _repository.AnyAsync(request.Email, cancellationToken);
+            if (exists)
+                return new Response("Este email já esta em uso", 400);
+
+        }
+        catch 
+        {
+            return new Response("Falha ao verificar o Email cadastrado", 500);
+        }
+        
+        #endregion
+
         #region 04. Persistir os dados
-        #endregion 
+
+        #endregion
+
         #region 05. Enviar Email de Activação
-        #endregion 
+
+        #endregion
     }
 }
