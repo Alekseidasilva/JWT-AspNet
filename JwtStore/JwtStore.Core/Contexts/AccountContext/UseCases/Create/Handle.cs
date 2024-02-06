@@ -1,4 +1,7 @@
-﻿using JwtStore.Core.Contexts.AccountContext.UseCases.Create.Contracts;
+﻿using JwtStore.Core.Contexts.AccountContext.Entities;
+using JwtStore.Core.Contexts.AccountContext.UseCases.Create.Contracts;
+using JwtStore.Core.Contexts.AccountContext.ValueObjects;
+using JwtStore.Core.Contexts.SharedContext.ValueObjects;
 
 namespace JwtStore.Core.Contexts.AccountContext.UseCases.Create;
 
@@ -29,6 +32,20 @@ public class Handle//Manipulador
         }
         #endregion 
         #region 02. Gerar od Objectos
+
+        Email email;
+        Password password;
+        User user;
+        try
+        {
+            email = new Email(request.Email);
+            password = new Password(request.Password);
+            user = new User(request.Name, email, password);
+        }
+        catch (Exception ex)
+        {
+            return new Response(ex.Message, 400);
+        }
         #endregion 
         #region 03. Verificar se o usuario exisite
         #endregion 

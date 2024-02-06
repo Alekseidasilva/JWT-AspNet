@@ -6,9 +6,12 @@ namespace JwtStore.Core.Contexts.AccountContext.Entities;
 
 public class User:Entity
 {
-    protected User()
+    protected User() { }
+    public User(string name,string email,Password password)
     {
-        
+        Name = name;
+        Email = email;
+        Password =password;
     }
     public User(string email,string? password=null)
     {
