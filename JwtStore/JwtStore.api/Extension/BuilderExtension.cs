@@ -44,4 +44,10 @@ public static class BuilderExtension
 
     }
 
+    public static void AddMediatR(this WebApplicationBuilder builder)
+    {
+        builder.Services.AddMediatR(x
+            => x.RegisterServicesFromAssembly(typeof(Configuration).Assembly));
+    }
+
 }

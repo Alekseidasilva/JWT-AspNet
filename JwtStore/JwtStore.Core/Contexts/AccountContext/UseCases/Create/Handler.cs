@@ -2,10 +2,12 @@
 using JwtStore.Core.Contexts.AccountContext.UseCases.Create.Contracts;
 using JwtStore.Core.Contexts.AccountContext.ValueObjects;
 using JwtStore.Core.Contexts.SharedContext.ValueObjects;
+using MediatR;
 
 namespace JwtStore.Core.Contexts.AccountContext.UseCases.Create;
 
-public class Handler//Manipulador
+public class Handler : IRequestHandler<Request, Response>
+//Handler -> Manipulador:
 {
     private readonly IRepository _repository;
     private readonly IService _service;

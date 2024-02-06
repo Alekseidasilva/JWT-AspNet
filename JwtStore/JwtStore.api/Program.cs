@@ -10,6 +10,8 @@ builder.AddAccountContext();
 //app.AddStoreEndpoints();
 //app.AddBackOfficeEndpoints();
 
+builder.AddMediatR();
+
 var app = builder.Build();
 app.UseHttpsRedirection();
 app.UseStaticFiles();

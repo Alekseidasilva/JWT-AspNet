@@ -18,6 +18,10 @@ public static class AccountContextExtension
 
     public static void MapAccountEndpoints(this WebApplication app)
     {
+        #region Create
+        //Mediator-> Patern que faz o intermedio entre as comunicações
 
+
+        #endregion
     }
 }
