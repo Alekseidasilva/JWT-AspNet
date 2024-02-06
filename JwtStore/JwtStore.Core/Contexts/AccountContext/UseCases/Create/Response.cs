@@ -1,8 +1,9 @@
 ﻿using Flunt.Notifications;
+using JwtStore.Core.Contexts.SharedContext.UseCases;
 
 namespace JwtStore.Core.Contexts.AccountContext.UseCases.Create;
 
-public class Response:SharedContext.UseCases.ResponseBase
+public class Response:ResponseBase
 {
  protected Response(){}
 
@@ -13,7 +14,7 @@ public class Response:SharedContext.UseCases.ResponseBase
  {
   Message = message;
    Status = status;
-   Notifications=notifications<
+   Notifications = notifications;
  }
 
  public Response(string message,
