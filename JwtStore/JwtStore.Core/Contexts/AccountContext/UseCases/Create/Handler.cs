@@ -5,12 +5,12 @@ using JwtStore.Core.Contexts.SharedContext.ValueObjects;
 
 namespace JwtStore.Core.Contexts.AccountContext.UseCases.Create;
 
-public class Handle//Manipulador
+public class Handler//Manipulador
 {
     private readonly IRepository _repository;
     private readonly IService _service;
 
-    public Handle(IRepository repository, IService service)
+    public Handler(IRepository repository, IService service)
     {
         _repository = repository;
         _service = service;
