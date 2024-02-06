@@ -1,4 +1,7 @@
-﻿namespace JwtStore.api.Extension;
+﻿using JwtStore.Core.Contexts.AccountContext.UseCases.Create;
+using MediatR;
+
+namespace JwtStore.api.Extension;
 
 public static class AccountContextExtension
 {
@@ -20,7 +23,14 @@ public static class AccountContextExtension
     {
         #region Create
         //Mediator-> Patern que faz o intermedio entre as comunicações
-
+        app.MapPost("api/v1/users", async (Request request,
+            IRequestHandler<Request, Response> handler) =>
+        {
+            var result = await handler.Handle(request, new CancellationToken());
+            return result.IsSuccess 
+                ? Results.Created("",result) 
+                : Results.Json(result, statusCode: result.Status);
+        });
 
         #endregion
     }
