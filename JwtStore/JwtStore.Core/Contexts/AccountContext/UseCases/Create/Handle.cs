@@ -62,9 +62,16 @@ public class Handle//Manipulador
         }
         
         #endregion
-
         #region 04. Persistir os dados
 
+        try
+        {
+            await _repository.SaveAsync(user, cancellationToken);
+        }
+        catch
+        {
+            return new Response("Façha ao persistir os dados", 500);
+        }
         #endregion
 
         #region 05. Enviar Email de Activação
