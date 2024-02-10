@@ -5,7 +5,7 @@ namespace JwtStore.Core.Contexts.AccountContext.UseCases.Create;
 
 public static class Specification
 {
-//Trata a questão de Contratos
+    //Trata a questão de Contratos
     public static Contract<Notification> Ensure(Request request) => new Contract<Notification>()
         .Requires()
         .IsLowerThan(request.Name.Length, 160, "Name", "O Nome deve ter no máximo 160 caracteres")
