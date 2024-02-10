@@ -3,16 +3,16 @@ using System.Security.Cryptography;
 namespace JwtStore.Core.Contexts.SharedContext.ValueObjects;
 
 
-public class Password:ValueObject
+public class Password : ValueObject
 {
     protected Password()
     {
-        
+
     }
-    public Password(string? text=null)
+    public Password(string? text = null)
     {
-        if (string.IsNullOrEmpty(text)||string.IsNullOrWhiteSpace(text))
-        text = Generate();
+        if (string.IsNullOrEmpty(text) || string.IsNullOrWhiteSpace(text))
+            text = Generate();
         Hash = Hashing(text);
     }
     private const string Valid = "abcdefghijklmnopqrstuvwxyzABCDEFGHIJKLMNOPQRSTUVWXYZ1234567890";
@@ -21,9 +21,9 @@ public class Password:ValueObject
     public string Hash { get; private set; } = string.Empty;
     public string ResetCode { get; } = Guid.NewGuid().ToString("N")[..8].ToUpper();
 
-    private static string Generate(short length=16,
-        bool includeSpecialChars=true,
-        bool upperCase=false)
+    private static string Generate(short length = 16,
+        bool includeSpecialChars = true,
+        bool upperCase = false)
     {
         var chars = includeSpecialChars ? (Valid + Special) : Valid;
         var startRandom = upperCase ? 26 : 0;
@@ -38,7 +38,7 @@ public class Password:ValueObject
 
     private static string Hashing(string password,
         short saltSize = 16,
-        short KeySize= 32,
+        short KeySize = 32,
         int iterations = 1000,
         char splitChar = '.')
     {
@@ -77,4 +77,7 @@ public class Password:ValueObject
         var keyToCheck = algoritm.GetBytes(keySize);
         return keyToCheck.SequenceEqual(key);
     }
+
+    public bool Challenge(string plainTextPassword)
+        => Verify(Hash, plainTextPassword);
 }
