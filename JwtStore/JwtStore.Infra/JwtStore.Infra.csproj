@@ -15,4 +15,8 @@
     <ProjectReference Include="..\JwtStore.Core\JwtStore.Core.csproj" />
   </ItemGroup>
 
+  <ItemGroup>
+    <Folder Include="Contexts\AccountContext\UseCases\Authenticate\" />
+  </ItemGroup>
+
 </Project>

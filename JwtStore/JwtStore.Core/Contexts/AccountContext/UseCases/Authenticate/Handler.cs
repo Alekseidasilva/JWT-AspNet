@@ -34,7 +34,7 @@ public class Handler : IRequestHandler<Request, Response>
         User? user;
         try
         {
-            user = await _repository.GetuserByEmailAsync(request.Email, cancellationToken);
+            user = await _repository.GetUserByEmailAsync(request.Email, cancellationToken);
             if (user is null)
                 return new Response("Perfil não encontrado", 404);
         }
@@ -47,7 +47,7 @@ public class Handler : IRequestHandler<Request, Response>
 
         #region 03.Verificar se a Senha é Valida
 
-        if (user.Password.Challenge(request.Password))
+        if (!user.Password.Challenge(request.Password))
             return new Response("Usuário ou senha inválidos", 400);
 
         #endregion
