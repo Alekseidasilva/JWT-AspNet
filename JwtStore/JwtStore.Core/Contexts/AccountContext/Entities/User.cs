@@ -18,11 +18,17 @@ public class User:Entity
         Email = email;
         Password =new Password(password);
     }
+
+    #region Property
     public string Name { get; private set; }= string.Empty;
     public Email Email { get; private set; } = null!;
     public Password Password { get; private set; } = null!;
     public string Image { get; private set; } = string.Empty;
 
+
+    public IEnumerable<Role> UserRoles { get; set; } = Enumerable.Empty<Role>();
+
+    #endregion
     #region Metodos
 
     public void UpdatePassword(string plainTextPassword, string code)
