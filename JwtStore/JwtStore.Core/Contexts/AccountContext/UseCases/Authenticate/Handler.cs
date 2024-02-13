@@ -1,4 +1,5 @@
-﻿using JwtStore.Core.Contexts.AccountContext.Entities;
+﻿using System.Security.Cryptography.X509Certificates;
+using JwtStore.Core.Contexts.AccountContext.Entities;
 using JwtStore.Core.Contexts.AccountContext.UseCases.Authenticate.Contracts;
 using MediatR;
 
@@ -66,7 +67,7 @@ public class Handler : IRequestHandler<Request, Response>
 
         #endregion
 
-      
+
         #region 05. retona os Dados
 
         try
@@ -76,7 +77,7 @@ public class Handler : IRequestHandler<Request, Response>
                 Id = user.Id.ToString(),
                 Name = user.Name,
                 Email = user.Email,
-                Roles = Array.Empty<string>()
+                Roles = user.Roles.Select(x => x.Name).ToArray()
             };
             return new Response(string.Empty, data);
         }
