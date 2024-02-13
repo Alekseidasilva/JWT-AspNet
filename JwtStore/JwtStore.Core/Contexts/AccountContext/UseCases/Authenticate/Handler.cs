@@ -1,5 +1,4 @@
-﻿using System.Security.Cryptography.X509Certificates;
-using JwtStore.Core.Contexts.AccountContext.Entities;
+﻿using JwtStore.Core.Contexts.AccountContext.Entities;
 using JwtStore.Core.Contexts.AccountContext.UseCases.Authenticate.Contracts;
 using MediatR;
 

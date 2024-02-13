@@ -10,18 +10,18 @@ public static class AccountContextExtension
         #region Create
 
         builder.Services.AddTransient<
-            JwtStore.Core.Contexts.AccountContext.UseCases.Create.Contracts.IRepository,
-            JwtStore.Infra.Contexts.AccountContext.UseCases.Create.Repository>();
+            Core.Contexts.AccountContext.UseCases.Create.Contracts.IRepository,
+            Infra.Contexts.AccountContext.UseCases.Create.Repository>();
 
         builder.Services.AddTransient<
-            JwtStore.Core.Contexts.AccountContext.UseCases.Create.Contracts.IService,
-            JwtStore.Infra.Contexts.AccountContext.UseCases.Create.Service>();
+            Core.Contexts.AccountContext.UseCases.Create.Contracts.IService,
+            Infra.Contexts.AccountContext.UseCases.Create.Service>();
         #endregion
         #region Authenticate
 
         builder.Services.AddTransient<
-            JwtStore.Core.Contexts.AccountContext.UseCases.Authenticate.Contracts.IRepository,
-            JwtStore.Infra.Contexts.AccountContext.UseCases.Authenticate.Repository>();
+            Core.Contexts.AccountContext.UseCases.Authenticate.Contracts.IRepository,
+            Infra.Contexts.AccountContext.UseCases.Authenticate.Repository>();
 
         #endregion
     }
@@ -57,7 +57,8 @@ public static class AccountContextExtension
             result.Data.Token = JwtExtension.Generate(result.Data);
 
             return Results.Ok(result);
-        });
+        })
+            .RequireAuthorization();
 
         #endregion
     }
