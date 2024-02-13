@@ -17,13 +17,13 @@ public class JwtExtension
             new SymmetricSecurityKey(key),
             SecurityAlgorithms.HmacSha256Signature);
 
-        var tokendescritptor = new SecurityTokenDescriptor
+        var tokenDescriptor = new SecurityTokenDescriptor
         {
             Subject = GenerateClaims(data),
             Expires = DateTime.UtcNow.AddHours(8),
-            SigningCredentials = credentials
+            SigningCredentials = credentials,
         };
-        var token = handler.CreateToken(tokendescritptor);
+        var token = handler.CreateToken(tokenDescriptor);
         return handler.WriteToken(token);
     }
 

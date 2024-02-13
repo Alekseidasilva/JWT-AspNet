@@ -4,7 +4,7 @@ using Microsoft.EntityFrameworkCore.Metadata.Builders;
 
 namespace JwtStore.Infra.Contexts.AccountContext.Mappings;
 
-public class UserMap:IEntityTypeConfiguration<User>
+public class UserMap : IEntityTypeConfiguration<User>
 {
     public void Configure(EntityTypeBuilder<User> builder)
     {
@@ -13,7 +13,7 @@ public class UserMap:IEntityTypeConfiguration<User>
         builder.HasKey(x => x.Id);
         #endregion
         #region Name
-       
+
 
         builder.Property(x => x.Name)
             .HasColumnName("Name")
@@ -26,31 +26,31 @@ public class UserMap:IEntityTypeConfiguration<User>
             .HasColumnType("VARCHAR")
             .HasMaxLength(120)
             .IsRequired(true);
-        
+
 
         #endregion
         #region Email
-        builder.OwnsOne(x=>x.Email)
-            .Property(x => x.Address)
-            .HasColumnName("Email")
+        builder.OwnsOne(x => x.Email)
+           .Property(x => x.Address)
+           .HasColumnName("Email")
+           .IsRequired(true);
+
+        builder.OwnsOne(x => x.Email)
+            .OwnsOne(x => x.Verification)
+            .Property(x => x.Code)
+            .HasColumnName("EmailVerificationCode")
             .IsRequired(true);
 
         builder.OwnsOne(x => x.Email)
             .OwnsOne(x => x.Verification)
-            .Property(x=>x.Code)
-            .HasColumnName("EmailVerificationCode")
-            .IsRequired(true);
-        
-        builder.OwnsOne(x => x.Email)
-            .OwnsOne(x => x.Verification)
-            .Property(x=>x.ExpiresAt)
-            .HasColumnName("EmailVerificationExpiredAt")
+            .Property(x => x.ExpiresAt)
+            .HasColumnName("EmailVerificationExpiresAt")
             .IsRequired(false);
 
         builder.OwnsOne(x => x.Email)
             .OwnsOne(x => x.Verification)
-            .Property(x=>x.VerifiedAt)
-            .HasColumnName("EmailVerificationVerificationAt")
+            .Property(x => x.VerifiedAt)
+            .HasColumnName("EmailVerificationVerifiedAt")
             .IsRequired(false);
 
         builder.OwnsOne(x => x.Email)
@@ -67,9 +67,9 @@ public class UserMap:IEntityTypeConfiguration<User>
             .Property(x => x.ResetCode)
             .HasColumnName("PasswordResetCode")
             .IsRequired();
-        
+
 
         #endregion
-        
+
     }
 }
