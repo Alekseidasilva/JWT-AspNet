@@ -8,7 +8,7 @@ public class Role : JwtStore.Core.Contexts.SharedContext.Entities.Entity
 
     #region Users
 
-    public IEnumerable<User> Users { get; set; } = Enumerable.Empty<User>();
+    public List<User> Users { get; set; } = new();
 
 
     #endregion

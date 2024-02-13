@@ -26,7 +26,7 @@ public class User:Entity
     public string Image { get; private set; } = string.Empty;
 
 
-    public IEnumerable<Role> UserRoles { get; set; } = Enumerable.Empty<Role>();
+    public List<Role> Roles { get; set; } = new ();
 
     #endregion
     #region Metodos

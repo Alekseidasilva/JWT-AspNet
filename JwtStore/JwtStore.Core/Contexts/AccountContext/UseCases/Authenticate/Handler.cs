@@ -66,6 +66,7 @@ public class Handler : IRequestHandler<Request, Response>
 
         #endregion
 
+      
         #region 05. retona os Dados
 
         try

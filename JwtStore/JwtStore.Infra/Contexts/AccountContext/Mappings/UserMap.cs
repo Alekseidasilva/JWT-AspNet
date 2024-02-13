@@ -74,7 +74,7 @@ public class UserMap : IEntityTypeConfiguration<User>
         #region Roles
 
         builder
-            .HasMany(x => x.UserRoles)
+            .HasMany(x => x.Roles)
             .WithMany(x => x.Users)
             .UsingEntity<Dictionary<string, object>>("UserRole", role => role
                     .HasOne<Role>()
